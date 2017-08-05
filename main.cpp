@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "Texture.h"
+#include "Light.h"
 //#include <glut.h>
 
 //SDL freeks
@@ -119,7 +120,7 @@ GLvoid drawScene(SDL_Window* window){
 		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
 		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,-1.0f);
 		
-		//Left face
+		//Left face 
 		
 		glTexCoord2f(1.0f,1.0f);glVertex3f(-1.0f,1.0f,1.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
