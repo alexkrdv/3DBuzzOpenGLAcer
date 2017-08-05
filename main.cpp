@@ -86,49 +86,52 @@ GLvoid drawScene(SDL_Window* window){
 	glRotatef(cubeRotateX,1,0,0);
 	glRotatef(cubeRotateY,0,1,0);
 
+	glColor3f(1.0f,1.0f,1.0f);
+
+	glBindTexture(GL_TEXTURE_2D, texture->texID);
+
 	glBegin(GL_QUADS);
 		
 		//Top face
-		glColor3f(1.0f,0.5f,0.0f);
-		glVertex3f(1.0f,1.0f,-1.0f);
-		glVertex3f(-1.0f,1.0f,-1.0f);
-		glVertex3f(-1.0f,1.0f,1.0f);
-		glVertex3f(1.0f,1.0f,1.0f);
+		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,-1.0f);		
+		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
+		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,1.0f,1.0f);
+		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,1.0f,1.0f);
 
 		//Bottom face
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(1.0f,-1.0f,-1.0f);
-		glVertex3f(-1.0f,-1.0f,-1.0f);
-		glVertex3f(-1.0f,-1.0f,1.0f);
-		glVertex3f(1.0f,-1.0f,1.0f);
+		
+		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,-1.0f,-1.0f);
+		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
+		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,1.0f);
+		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,1.0f);
 
 		//Front face
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f(1.0f,1.0f,1.0f);
-		glVertex3f(-1.0f,1.0f,1.0f);
-		glVertex3f(-1.0f,-1.0f,1.0f);
-		glVertex3f(1.0f,-1.0f,1.0f);
+		
+		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,1.0f);
+		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,1.0f);
+		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,1.0f);
+		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,1.0f);
 		
 		//Back face
-		glColor3f(1.0f,1.0f,0.0f);
-		glVertex3f(1.0f,1.0f,-1.0f);
-		glVertex3f(-1.0f,1.0f,-1.0f);
-		glVertex3f(-1.0f,-1.0f,-1.0f);
-		glVertex3f(1.0f,-1.0f,-1.0f);
+		
+		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,-1.0f);
+		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
+		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
+		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,-1.0f);
 		
 		//Left face
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(-1.0f,1.0f,1.0f);
-		glVertex3f(-1.0f,1.0f,-1.0f);
-		glVertex3f(-1.0f,-1.0f,-1.0f);
-		glVertex3f(-1.0f,-1.0f,1.0f);
+		
+		glTexCoord2f(1.0f,1.0f);glVertex3f(-1.0f,1.0f,1.0f);
+		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
+		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
+		glTexCoord2f(1.0f,0.0f);glVertex3f(-1.0f,-1.0f,1.0f);
 		
 		//Right face
-		glColor3f(1.0f,0.0f,1.0f);
-		glVertex3f(1.0f,1.0f,1.0f);
-		glVertex3f(1.0f,1.0f,-1.0f);
-		glVertex3f(1.0f,-1.0f,-1.0f);
-		glVertex3f(1.0f,-1.0f,1.0f);
+		
+		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,1.0f);
+		glTexCoord2f(0.0f,1.0f);glVertex3f(1.0f,1.0f,-1.0f);
+		glTexCoord2f(0.0f,0.0f);glVertex3f(1.0f,-1.0f,-1.0f);
+		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,1.0f);
 		
 	glEnd();
 
