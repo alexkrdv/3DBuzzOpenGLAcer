@@ -21,7 +21,7 @@ public:
 	Light(LIGHT_TYPE lightType);
 	~Light();
 
-	bool Visible(bool value = true);
+	void Visible(bool value = true);
 
 	void setDiffuse(float r, float g, float b, float a);
 	void setAmbient(float r, float g, float b, float a);
@@ -48,7 +48,7 @@ private:
 	GLfloat	position[4];
 	GLfloat	diffuse[4];
 	GLfloat	ambient[4];
-	GLfloat	specularity[4];
+	GLfloat	specular[4];
 	GLfloat	spotDirection[4];
 	
 	float cutoff;
@@ -58,6 +58,6 @@ private:
 	int lightType;
 
 	int lightNum;
-}
+};
 
 #endif

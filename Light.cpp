@@ -8,7 +8,7 @@ Light::Light(LIGHT_TYPE lightType){
 
 	lights.push_back(this);
 
-	if((int)availableLights.size()>0){
+	if((int)avialableLights.size()>0){
 
 		lightNum = avialableLights[0];
 
@@ -16,7 +16,7 @@ Light::Light(LIGHT_TYPE lightType){
 
 		Visible(true);
 
-		setLightType(type);
+		setLightType(lightType);
 
 		setPosition(0,0,0);
 		setSpotDirection(0,-1,0);
@@ -36,7 +36,7 @@ Light::Light(LIGHT_TYPE lightType){
 		Visible(false);
 	}
 }
-bool Light::Visible(bool value){
+void Light::Visible(bool value){
 
 	visible = value;
 
@@ -148,8 +148,8 @@ int Light::getLightNum(void){
 }
 void Light::updateLight(void){
 
-	glLightf(lightNum,GL_POSITION,position);
-	glLightf(lightNum,GL_SPOT_DIRECTION,spotDirection);
+	glLightfv(lightNum,GL_POSITION,position);
+	glLightfv(lightNum,GL_SPOT_DIRECTION,spotDirection);
 }
 
 Light::~Light(){

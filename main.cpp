@@ -18,7 +18,7 @@
 #define main main
 
 
-const GLsizei  windowWidth = 640;
+const GLsizei windowWidth = 640;
 const GLsizei windowHeight = 480;
 
 GLfloat cubeRotateX = 45;
