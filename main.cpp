@@ -19,7 +19,6 @@ const GLsizei windowHeight = 480;
 
 GLfloat cubeRotateX = 45;
 GLfloat cubeRotateY = 45;
-const Uint8 *state=NULL;
 //char *keys = NULL;
 
 GLvoid establishProjectionMatrix(GLsizei width,GLsizei height){
@@ -132,25 +131,34 @@ GLvoid drawScene(SDL_Window* window){
 
 }
 
-GLvoid checkKeys(SDL_Event *evnt){
+GLvoid checkKeys(const Uint8 *state){
 
-	const GLfloat speed = 1.0f;
+	const GLfloat speed = 7.0f;
 
-	/*if (state[SDL_SCANCODE_RETURN]) {
+	if (state[SDL_SCANCODE_RETURN]) {
     printf("<RETURN> is pressed.\n");
 	}
 
-	if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
-		printf("Right and Up Keys Pressed.\n");
-	}*/
+	if (state[SDL_SCANCODE_RIGHT]) {
+		cubeRotateY += speed;
+	}
+	if (state[SDL_SCANCODE_LEFT]) {
+		cubeRotateY -= speed;
+	}
+	if (state[SDL_SCANCODE_UP]) {
+		cubeRotateX -= speed;
+	}
+	if (state[SDL_SCANCODE_DOWN]) {
+		cubeRotateX += speed;;
+	}
 
-	switch(evnt->key.keysym.sym){
+	/*switch(evnt->key.keysym.sym){
 	
 	case SDLK_LEFT: cubeRotateY -=speed;break;
 	case SDLK_RIGHT: cubeRotateY +=speed;break;
 	case SDLK_UP: cubeRotateX +=speed;break;
 	case SDLK_DOWN: cubeRotateX -=speed;break;
-	}
+	}*/
 
 
 }
@@ -162,6 +170,7 @@ GLvoid checkKeys(SDL_Event *evnt){
 //}
 
 int main(int argc,char **argv){
+		
 
 	if(SDL_Init(SDL_INIT_VIDEO)<0){
 		//error
@@ -178,7 +187,13 @@ int main(int argc,char **argv){
 		//error
 	}
 
+
+	// Create an OpenGL context associated with the window.
+	SDL_GLContext glcontext = SDL_GL_CreateContext(window);
 	initGL(windowWidth,windowHeight);
+
+	//состояния клавиатуры
+	const Uint8 *state = NULL;
 
 	int done = 0;
 
@@ -193,7 +208,7 @@ int main(int argc,char **argv){
 			}
 
 			state = SDL_GetKeyboardState(NULL);
-			checkKeys(&evnt);
+			checkKeys(state);
 			//std::cout<<SDL_GetScancodeFromKey(evnt.key.keysym.sym)<<std::endl;
 			//std::cout<<evnt.key.keysym.scancode<<std::endl;
 		}
