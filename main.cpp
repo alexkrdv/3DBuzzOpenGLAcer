@@ -4,10 +4,13 @@
  #include <Windows.h>
 #endif
 
+
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <stdio.h>
 #include <iostream>
+
+#include "Texture.h"
 //#include <glut.h>
 
 //SDL freeks
@@ -20,6 +23,8 @@ const GLsizei windowHeight = 480;
 GLfloat cubeRotateX = 45;
 GLfloat cubeRotateY = 45;
 //char *keys = NULL;
+
+Texture *texture=NULL;
 
 GLvoid establishProjectionMatrix(GLsizei width,GLsizei height){
 	glViewport(0,0,width,height);
@@ -38,6 +43,11 @@ GLvoid initGL(GLsizei width,GLsizei height){
 
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 	glEnable(GL_PERSPECTIVE_CORRECTION_HINT);
+
+	glEnable(GL_TEXTURE_2D);
+
+	texture = new Texture("data/box.tga","Box texture");
+
 }
 
 GLvoid displayFPS(SDL_Window* window){
