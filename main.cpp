@@ -26,6 +26,7 @@ GLfloat cubeRotateY = 45;
 //char *keys = NULL;
 
 Texture *texture=NULL;
+Light *mainLight=NULL;
 
 GLvoid establishProjectionMatrix(GLsizei width,GLsizei height){
 	glViewport(0,0,width,height);
@@ -35,6 +36,9 @@ GLvoid establishProjectionMatrix(GLsizei width,GLsizei height){
 }
 
 GLvoid initGL(GLsizei width,GLsizei height){
+
+	Light::Initialize();
+
 	establishProjectionMatrix(width,height);
 	glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f,0.0f,0.0f,1.0f);
@@ -46,6 +50,11 @@ GLvoid initGL(GLsizei width,GLsizei height){
 	glEnable(GL_PERSPECTIVE_CORRECTION_HINT);
 
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
+
+	mainLight = new Light(LIGHT_SPOT);
+	mainLight->setDiffuse(2.0,2.0,2.0,1.0);
+	mainLight->setPosition(0,5,0);
 
 	texture = new Texture("data/box.tga","Box texture");
 
@@ -87,6 +96,10 @@ GLvoid drawScene(SDL_Window* window){
 	glRotatef(cubeRotateX,1,0,0);
 	glRotatef(cubeRotateY,0,1,0);
 
+	for(int i=0;i<(int)Light::lights.size();i++){
+		Light::lights[i]->updateLight();
+	}
+
 	glColor3f(1.0f,1.0f,1.0f);
 
 	glBindTexture(GL_TEXTURE_2D, texture->texID);
@@ -94,41 +107,42 @@ GLvoid drawScene(SDL_Window* window){
 	glBegin(GL_QUADS);
 		
 		//Top face
+		glNormal3f(0,1,0);
 		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,-1.0f);		
 		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,1.0f,1.0f);
 		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,1.0f,1.0f);
 
 		//Bottom face
-		
+		glNormal3f(0,-1,0);
 		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,-1.0f,-1.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,1.0f);
 		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,1.0f);
 
 		//Front face
-		
+		glNormal3f(0,0,1);
 		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,1.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,1.0f);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,1.0f);
 		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,1.0f);
 		
 		//Back face
-		
+		glNormal3f(0,0,-1);
 		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,-1.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
 		glTexCoord2f(1.0f,0.0f);glVertex3f(1.0f,-1.0f,-1.0f);
 		
 		//Left face 
-		
+		glNormal3f(1,0,0);
 		glTexCoord2f(1.0f,1.0f);glVertex3f(-1.0f,1.0f,1.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(-1.0f,1.0f,-1.0f);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(-1.0f,-1.0f,-1.0f);
 		glTexCoord2f(1.0f,0.0f);glVertex3f(-1.0f,-1.0f,1.0f);
 		
 		//Right face
-		
+		glNormal3f(-1,0,0);
 		glTexCoord2f(1.0f,1.0f);glVertex3f(1.0f,1.0f,1.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(1.0f,1.0f,-1.0f);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(1.0f,-1.0f,-1.0f);

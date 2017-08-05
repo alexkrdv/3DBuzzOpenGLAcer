@@ -4,6 +4,15 @@ int Light::numLights = 0  ;
 vector<int> Light::avialableLights;
 vector<Light*> Light::lights;
 
+void Light::Initialize(void){
+
+	glGetIntegerv(GL_MAX_LIGHTS,&numLights);
+
+	for(int i = 0; i < numLights;i++){
+		avialableLights.push_back(GL_LIGHT0+i);
+	}
+}
+
 Light::Light(LIGHT_TYPE lightType){
 
 	lights.push_back(this);

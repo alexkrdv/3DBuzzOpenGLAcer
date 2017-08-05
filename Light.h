@@ -18,6 +18,9 @@ using std::vector;
 class Light{
 
 public:
+
+	static void Initialize(void);
+
 	Light(LIGHT_TYPE lightType);
 	~Light();
 
