@@ -83,7 +83,33 @@ GLvoid displayFPS(SDL_Window* window){
 
 	loops++;
 }
-///
+
+GLvoid drawGrid(){
+	
+	const float width = 80.0f;
+	const float height = 80.0f;
+
+	const int divisions = 100;
+
+	float incX = width/(float)divisions;
+	float incY = height/(float)divisions;
+
+	//draw plane
+	glColor3f(0,0,0);
+	glNormal3f(0,1,0);
+	for(float x = -width/2; x<width/2; x+=incX){
+		for(float y = -height/2;y<height/2;y+=incY){
+			//plane is divided on squares, each square consist of two triangles
+			glBegin(GL_TRIANGLE_STRIP);
+				glVertex3f(x+incX,0,y+incY);
+				glVertex3f(x,0,y+incY);
+				glVertex3f(x+incX,0,y);
+				glVertex3f(x,0,y);
+			glEnd();
+
+		}
+	}
+}
 
 GLvoid drawScene(SDL_Window* window){
 
@@ -102,7 +128,8 @@ GLvoid drawScene(SDL_Window* window){
 
 	glColor3f(1.0f,1.0f,1.0f);
 
-	glBindTexture(GL_TEXTURE_2D, texture->texID);
+	//glBindTexture(GL_TEXTURE_2D, texture->texID);
+	drawGrid();
 
 	glBegin(GL_QUADS);
 		
@@ -153,7 +180,7 @@ GLvoid drawScene(SDL_Window* window){
 	glFlush();
 
 	SDL_GL_SwapWindow(window);
-	SDL_UpdateWindowSurface(window);
+	//SDL_UpdateWindowSurface(window);
 
 	displayFPS(window);
 
